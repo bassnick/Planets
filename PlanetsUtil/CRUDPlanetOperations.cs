@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace PlanetsUtil
 {
-    public class CRUDPlanetOperations: ICRUD<Planet>
+    internal class CRUDPlanetOperations
     {
-        DBMappingContext context;
+        internal DBMappingContext context;
 
-        public CRUDPlanetOperations(DBMappingContext context)
+        internal CRUDPlanetOperations(DBMappingContext context)
         {
             this.context = context;
         }
 
-        public bool Create(Planet obj, out string errorMessage)
+        internal bool Create(Planet obj, out string errorMessage)
         {
             if (obj.Name == null || obj.Name.Length == 0) {
                 errorMessage = "Planet must have filled the name.";
@@ -46,34 +46,34 @@ namespace PlanetsUtil
             }
         }
         
-        public void Update(Planet obj)
+        internal void Update(Planet obj)
         {
             Planet planet = context.PlanetModel.Find(obj.PlanetId);
             planet = obj;
             context.SaveChanges();
             
         }
-        public void Delete(Planet obj)
+        internal void Delete(Planet obj)
         {
             context.PlanetModel.Remove(obj);
             context.SaveChanges();
         }
-        public List<Planet> ReadAll()
+        internal List<Planet> ReadAll()
         {
             return context.PlanetModel.ToList<Planet>(); 
         }
-        public Planet ReadById(int planetId)
+        internal Planet ReadById(int planetId)
         {
             Planet planet =context.PlanetModel.FirstOrDefault(x => x.PlanetId == planetId);
             return planet;
         }
-        public Planet ReadByName(string planetName)
+        internal Planet ReadByName(string planetName)
         {
             Planet planet = context.PlanetModel.FirstOrDefault(x => x.Name == planetName);
             return planet;
         }
 
-        public bool Exists(Planet obj)
+        internal bool Exists(Planet obj)
         {
             return context.PlanetModel.Any(e => e.PlanetId == obj.PlanetId);
         }

@@ -9,16 +9,16 @@ using System.Threading.Tasks.Dataflow;
 
 namespace PlanetsUtil
 {
-    public class CRUDAsssignmentsOperations : ICRUD<Assignment>
+    internal class CRUDAsssignmentsOperations
     {
-        DBMappingContext context;
+        internal DBMappingContext context;
 
-        public CRUDAsssignmentsOperations(DBMappingContext context)
+        internal CRUDAsssignmentsOperations(DBMappingContext context)
         {
             this.context = context;
             
         }
-        public bool Create(Assignment obj, out string errorMessage)
+        internal bool Create(Assignment obj, out string errorMessage)
         {
             if (obj.planet <= 0)
             {
@@ -45,47 +45,42 @@ namespace PlanetsUtil
             }
         }
         
-        public void Update(Assignment assign)
+        internal void Update(Assignment assign)
         {
             Assignment assignement  = context.AssignmentModel.Find(assign.assignmentId);
             assignement = assign;
             context.SaveChanges();
             
         }
-        public void Delete(Assignment assign)
+        internal void Delete(Assignment assign)
         {
             context.AssignmentModel.Remove(assign);
             context.SaveChanges();
         }
-        public List<Assignment> ReadAll()
+        internal List<Assignment> ReadAll()
         {
             return context.AssignmentModel.ToList<Assignment>(); 
         }
-        public Assignment ReadById(int assignmentId)
+        internal Assignment ReadById(int assignmentId)
         {
             Assignment asssignment = context.AssignmentModel.FirstOrDefault(x => x.assignmentId == assignmentId);
             return asssignment;
             
         }
-        public Assignment ReadByPlanetId(int planetId)
+        internal Assignment ReadByPlanetId(int planetId)
         {
             Assignment asssignment = context.AssignmentModel.FirstOrDefault(x => x.planet == planetId);
             return asssignment;
         }
-        public Assignment ReadByPropertyId(int propertyId)
+        internal Assignment ReadByPropertyId(int propertyId)
         {
             Assignment asssignment = context.AssignmentModel.Single(x => x.planetProperty == propertyId);
             return asssignment;
         }
 
-        public bool Exists(Assignment assign)
+        internal bool Exists(Assignment assign)
         {
             return context.AssignmentModel.Any(e => e.assignmentId == assign.assignmentId);
-        }
-
-        public static implicit operator CRUDAsssignmentsOperations(CRUDPlanetOperations v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

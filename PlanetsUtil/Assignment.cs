@@ -16,5 +16,10 @@ namespace PlanetsUtil
         public int planet { get; set; }
         public int planetProperty { get; set; }
         public string propertyValue { get; set; }
+        internal Assignment(int planetId, int propertyid, string value) {
+            this.planet = planetId;
+            this.planetProperty = propertyid;
+            this.propertyValue = value;
+        }
     }
 }

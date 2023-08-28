@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Transactions;
 
 namespace PlanetsUtil
 {
@@ -26,6 +25,8 @@ namespace PlanetsUtil
         public double NumberOfMoons { get; set; }
         public bool RingSystem { get; set; }
         */
+        
+        // not used in this version
         public ICollection<PlanetProperty> Properties { get; set; }
 
         public Planet() { 
@@ -34,19 +35,11 @@ namespace PlanetsUtil
 
     public class RockyPlanet : Planet
     {   
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public int PlanetId { get; set; }
-        
         public double Diameter { get; set; }
-
     }
 
     public class GasPlanet : Planet
     {
-        
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public int PlanetId { get; set; } 
-        
         public double GasPressure { get; set; }
     }
 }

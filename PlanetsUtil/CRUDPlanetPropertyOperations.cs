@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace PlanetsUtil
 {
-    public class CRUDPlanetPropertyOperations : ICRUD<PlanetProperty>
+    internal class CRUDPlanetPropertyOperations
     {
-        DBMappingContext context;
+        internal DBMappingContext context;
 
-        public CRUDPlanetPropertyOperations(DBMappingContext context)
+        internal CRUDPlanetPropertyOperations(DBMappingContext context)
         {
             this.context = context;
         }
-        public bool Create(PlanetProperty obj, out string errorMessage)
+        internal bool Create(PlanetProperty obj, out string errorMessage)
         {
             if (obj.Name == null || obj.Name.Length == 0)
             {
@@ -34,34 +34,34 @@ namespace PlanetsUtil
                 return true;
             }
         }
-        public void Update(PlanetProperty obj)
+        internal void Update(PlanetProperty obj)
         {
             PlanetProperty planetProperty = context.PlanetPropertyModel.Find(obj.PropertyId);
             planetProperty = obj;
             context.SaveChanges();
         }
 
-        public void Delete(PlanetProperty obj)
+        internal void Delete(PlanetProperty obj)
         {
             context.PlanetPropertyModel.Remove(obj);
             context.SaveChanges();
         }
-        public List<PlanetProperty> ReadAll()
+        internal List<PlanetProperty> ReadAll()
         {
             return context.PlanetPropertyModel.ToList<PlanetProperty>();
         }
-        public PlanetProperty ReadById(int propertyId)
+        internal PlanetProperty ReadById(int propertyId)
         {
             PlanetProperty property = context.PlanetPropertyModel.FirstOrDefault(x => x.PropertyId == propertyId);
             return property;
         }
         
-        public PlanetProperty ReadByName(string propertyName)
+        internal PlanetProperty ReadByName(string propertyName)
         {
             PlanetProperty property = context.PlanetPropertyModel.FirstOrDefault(x => x.Name == propertyName);
             return property;
         }
-        public bool Exists(PlanetProperty obj)
+        internal bool Exists(PlanetProperty obj)
         {
             return context.PlanetPropertyModel.Any(e => e.PropertyId == obj.PropertyId);
         }
